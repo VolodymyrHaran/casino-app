@@ -1,32 +1,10 @@
 <h2>Games</h2>
 
 <div class="games-grid">
-  @for (game of games; track game.name) {
-    <div class="game-card">
-      <img [src]="game.image" [alt]="game.name">
-
-      <h3>{{ game.name }}</h3>
-
-      <p>{{ game.provider }}</p>
-
-      <p>Rating: {{ game.rating }}</p>
-
-      @if (game.isFavorite) {
-        <p>⭐ Favorite</p>
-      }
-
-      <button (click)="toggleFavorite(game)">
-      @if (!game.isFavorite) {
-        Toggle Favorite
-      }
-      @else {
-        Remove Favorite
-      }
-      </button>
-
-      <button>Play</button>
-    </div>
+  @for (game of games; track game.id) {
+    <app-game-card 
+      [game]="game"
+      (favoriteClicked)="toggleFavorite($event)">
+    </app-game-card>
   }
-  
-
 </div>

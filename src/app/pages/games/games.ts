@@ -4,10 +4,11 @@ import { Game } from '../../models/game.model';
 import { GamesService } from '../../services/games.service';
 import { OnInit,OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { GameCard } from '../../components/game-card/game-card';
 
 @Component({
   selector: 'app-games',
-  imports: [CommonModule],
+  imports: [CommonModule, GameCard],
   templateUrl: './games.html',
   styleUrl: './games.scss',
 })

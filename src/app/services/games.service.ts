@@ -1,37 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Game } from '../models/game.model';
 import { Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { PhotoApiResponse } from '../models/photo-api-response.model';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class GamesService {
-  games: Game[] = [
-    {
-      name: 'Book of Dead',
-      provider: 'Play’n GO',
-      image: 'https://placehold.co/200x120',
-      rating: 4.5,
-      isFavorite: false
-    },
-    {
-      name: 'Sweet Bonanza',
-      provider: 'Pragmatic Play',
-      image: 'https://placehold.co/200x120',
-      rating: 4.2,
-      isFavorite: false
-    },
-    {
-      name: 'Gates of Olympus',
-      provider: 'Pragmatic Play',
-      image: 'https://placehold.co/200x120',
-      rating: 4.0,
-      isFavorite: false
-    }
-  ];
-  getGames() : Observable<Game[]> {
-    return of(this.games);
+  constructor(private http: HttpClient) {
+  }
+
+  getGames(): Observable<Game[]> {
+    const input = this.http.get<PhotoApiResponse[]>('https://jsonplaceholder.typicode.com/photos?_limit=10');
+    return input.pipe(
+      map((games) => {
+        return games.map((game) => this.transformResponse(game));
+      })
+    );
+  }
+
+  private transformResponse(game: PhotoApiResponse): Game {
+    return {
+            id: game.id,
+            name: game.title,
+            provider: 'Provider ' + game.albumId,
+            image: game.thumbnailUrl,
+            rating: Math.floor(Math.random() * 5) + 1,
+            isFavorite: false,
+          };
   }
 }
