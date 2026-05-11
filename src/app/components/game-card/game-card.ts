@@ -12,6 +12,6 @@ export class GameCard {
   @Output() favoriteClicked = new EventEmitter<Game>();
   
   toggleFavorite() {
-    this.game.isFavorite = !this.game.isFavorite;
+    this.favoriteClicked.emit(this.game);
   }
 }
