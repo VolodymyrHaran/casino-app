@@ -6,6 +6,7 @@ import { GameCard } from '../../components/game-card/game-card';
 import { combineLatest, map, startWith, catchError, of, Observable, debounceTime } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-games',
   imports: [CommonModule, GameCard, ReactiveFormsModule],
