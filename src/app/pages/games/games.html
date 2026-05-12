@@ -1,11 +1,24 @@
 <h2>Games</h2>
-@if (games$ | async; as games) {
-  <div class="games-grid">
-    @for (game of games; track game.id) {
-      <app-game-card 
-        [game]="game"
-        (favoriteClicked)="toggleFavorite($event)">
-      </app-game-card>
-    }
-  </div>
+<div>
+  <input type="text" [formControl]="searchControl" placeholder="Search games..." />
+</div>
+@if (vm$ | async; as vm) {
+  @if (vm.errorMessage) {
+    <p>{{ vm.errorMessage }}</p>
+  }
+
+  @if (!vm.loading && !vm.errorMessage && vm.games.length === 0) {
+    <p>No games found</p>
+  }
+
+  @if (!vm.loading && !vm.errorMessage && vm.games.length > 0) {
+    <div class="games-grid">
+      @for (game of vm.games; track game.id) {
+        <app-game-card
+          [game]="game"
+          (favoriteClicked)="toggleFavorite($event)">
+        </app-game-card>
+      }
+    </div>
+  }
 }
