@@ -1,1 +1,7 @@
-<p>Game ID: {{ gameId }}</p>
+<a routerLink="/games">← Back to games</a>
+@if (vm$ | async; as vm) {
+  <h2>{{ vm.game?.name }}</h2>
+  <img [src]="vm.game?.image" [alt]="vm.game?.name">
+  <p>{{ vm.game?.provider }}</p>
+  <p>Rating: {{ vm.game?.rating }}</p>
+}

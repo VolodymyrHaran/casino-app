@@ -58,6 +58,6 @@ export class Games {
   }
 
   toggleFavorite(game: Game) {
-    game.isFavorite = !game.isFavorite;
+    this.gamesService.toggleFavourite(game.id);
   }
 }
