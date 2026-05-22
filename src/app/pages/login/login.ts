@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,10 +9,16 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   login() {
     this.authService.login();
-    this.router.navigate(['/games']);
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/games';
+
+    this.router.navigateByUrl(returnUrl);
   }
 }
