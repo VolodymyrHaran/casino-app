@@ -9,7 +9,10 @@ export class AuthService {
   private loggedInSubject = new BehaviorSubject<boolean>(this.getStoredLoginState());
 
   isLoggedIn$ = this.loggedInSubject.asObservable();
-
+  getAuthToken(): string {
+    return 'fake-jwt-token';
+  }
+  
   get isLoggedIn(): boolean {
     return this.loggedInSubject.value;
   }
